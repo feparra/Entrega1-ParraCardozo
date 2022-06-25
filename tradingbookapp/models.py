@@ -10,4 +10,3 @@ class Trade(models.Model):
     entrada = models.FloatField("Precio Entrada",)
     target = models.FloatField("Target")
     stop = models.FloatField("stop")
-    

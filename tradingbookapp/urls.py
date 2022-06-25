@@ -4,5 +4,8 @@ from . import views #se utiliza el punto por que es la ruta relativa (donde esta
 
 urlpatterns = [
     path('',views.index, name='index'),
+    path('dashboard/',views.Dashboard,name="dashboard"),
+    path('notes/',views.Notes,name="notes"),
+    path('trades/',views.Trades,name="trades"),
     
 ]
