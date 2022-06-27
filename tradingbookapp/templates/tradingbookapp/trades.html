@@ -41,6 +41,7 @@
                         <table class="table">
 
                             <thead>
+                                <th scope="col">Fecha</th>
                                 <th scope="col">Simbolo</th>
                                 <th scope="col">Posicion</th>
                                 <th scope="col">Entrada</th>
@@ -50,6 +51,7 @@
                             <ul class= "list-group list-group-numbered">
                                 {% for trade in trades  %}
                                 <tr>
+                                    <td>{{trade.fecha}}</td>
                                     <td>{{trade.simbolo}}</td>
                                     <td><span class= "badge bg-primary rounded-pill>">{{trade.get_posicion_display}}</span></td>
                                     <td>{{trade.entrada}}</td>

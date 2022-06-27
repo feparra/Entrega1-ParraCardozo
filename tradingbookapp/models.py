@@ -1,7 +1,9 @@
 from django.db import models
 
 class Trade(models.Model):
+    fecha = models.DateField("Fecha de operacion",unique=True, null=True)
     simbolo = models.CharField("Simbolo",max_length=30)
+    
     posiciones = (
         (1,"Long"),
         (2,"Short")

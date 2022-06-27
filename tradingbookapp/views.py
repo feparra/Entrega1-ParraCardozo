@@ -12,8 +12,10 @@ def Trades(request):
     return render(request,'tradingbookapp/Trades.html',ctx)
 
 def Dashboard(request):
-    pass
-    return  render (request,'tradingbookapp/dashboard.html')
+    
+    trades = Trade.objects.all()
+    ctx = {'trades':trades}
+    return  render (request,'tradingbookapp/dashboard.html',ctx)
 
 def Notes(request):
     pass
