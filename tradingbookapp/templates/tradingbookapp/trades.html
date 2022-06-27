@@ -1,36 +1,90 @@
-{%load static %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href="{%static 'styles.css'%}">
-    <title>TheGoodTrader-TradingBook</title>
-</head>
-<body>
-    <h1>Trades</h1>
-    <h3> Trades Realizados </h3>
-    <table>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>The Good Trader - Tradingbook</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}"   />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css/styles.css' %}"  rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <a class="navbar-brand" href="#!">The Good Trader</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="trades">Tradingbook</a></li>
+                        <li class="nav-item"><a class="nav-link" href="dashboard">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="notes">Notes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+     
+        <section class="bg-light py-5 border-bottom">
+            <div class="container px-5">
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
 
-        <thead>
-            <td>Simbolo</td>
-            <td>Posicion</td>
-            <td>Entrada</td>
-            <td>Target</td>
-            <td>Stop</td>
-        </thead>
-        {% for trade in trades  %}
-        <tr>
-            <td>{{trade.simbolo}}</td>
-            <td>{{trade.get_posicion_display}}</td>
-            <td>{{trade.entrada}}</td>
-            <td>{{trade.target}}</td>
-            <td>{{trade.stop}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    
-    
-</body>
+                        <h3>Los Trades Realizados son:</h3>
+                        <table class="table">
+
+                            <thead>
+                                <th scope="col">Simbolo</th>
+                                <th scope="col">Posicion</th>
+                                <th scope="col">Entrada</th>
+                                <th scope="col">Target</th>
+                                <th scope="col">Stop</th>
+                            </thead>
+                            <ul class= "list-group list-group-numbered">
+                                {% for trade in trades  %}
+                                <tr>
+                                    <td>{{trade.simbolo}}</td>
+                                    <td><span class= "badge bg-primary rounded-pill>">{{trade.get_posicion_display}}</span></td>
+                                    <td>{{trade.entrada}}</td>
+                                    <td>{{trade.target}}</td>
+                                    <td>{{trade.stop}}</td>
+                                    
+                                </tr>
+                                {% endfor %}
+                            </ul>
+                        </table>
+      
+
+                    </div>
+                </div>
+            </div>
+            
+
+
+
+        </section>
+ 
+
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container px-5"><p class="m-0 text-center text-white">Copyright &copy; Evolution Marketing 2022</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}" ></script>
+
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
 </html>
