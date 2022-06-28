@@ -7,6 +7,7 @@ urlpatterns = [
     path('dashboard/',views.Dashboard,name="Dashboard"),
     path('notes/',views.Notes,name="Notes"),
     path('trades/',views.Trades,name="Trades"),
+        path('crear_trades/',views.crear_trade,name="crear_trades"),
     # path('base/', views.base),
     
 ]

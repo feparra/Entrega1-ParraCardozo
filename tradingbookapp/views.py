@@ -17,6 +17,10 @@ def base(request):
 
 
 
+def crear_trade(request):
+    return render(request,'tradingbookapp/formulario_trade.html')
+
+
 def Dashboard(request):
     
     trades = Trade.objects.all()

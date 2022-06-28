@@ -12,3 +12,11 @@ class Trade(models.Model):
     entrada = models.FloatField("Precio Entrada",)
     target = models.FloatField("Target")
     stop = models.FloatField("stop")
+    
+class Notes(models.Model):
+    fecha = models.DateField("Fecha de operacion",unique=True, null=True) 
+    Nota = models.CharField("Notas de trading", max_length=250)
+    
+    
+class Mercados(models.Model):
+    mercado = models.CharField("Watch List", max_length=250)
