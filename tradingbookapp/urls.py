@@ -7,7 +7,9 @@ urlpatterns = [
     path('dashboard/',views.Dashboard,name="Dashboard"),
     path('notes/',views.Notes,name="Notes"),
     path('trades/',views.Trades,name="Trades"),
-        path('crear_trades/',views.crear_trade,name="crear_trades"),
+    path('crear_trades/',views.crear_trade,name="crear_trades"),
+    path('crear_notes/',views.crear_notes,name="crear_notes"),
+    path('crear_mercados/',views.crear_mercados,name="crear_mercados"),
     # path('base/', views.base),
     
 ]

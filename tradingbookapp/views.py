@@ -21,6 +21,13 @@ def crear_trade(request):
     return render(request,'tradingbookapp/formulario_trade.html')
 
 
+def crear_notes(request):
+    return render(request,'tradingbookapp/formulario_notes.html')
+
+def crear_mercados(request):
+    return render(request,'tradingbookapp/formulario_mercados.html')
+
+
 def Dashboard(request):
     
     trades = Trade.objects.all()
