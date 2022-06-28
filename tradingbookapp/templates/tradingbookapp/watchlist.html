@@ -1,31 +1,29 @@
 {% extends "tradingbookapp/base.html" %}
 
 {% block titulopagina%}
-The Good Trader - Note
+The Good Trader - WatchList
 {%endblock%}
 {%block contenidopagina%}
+
 
 <section class="bg-light py-5 border-bottom">
     <div class="container px-5">
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
 
-                <h3>TradingNotes:</h3>
+                <h3>Los Mercados a Observar son:</h3>
                 <table class="table">
 
                     <thead>
-                        <th scope="col">Fecha</th>
+                        
+                        <th scope="col">Mercado</th>
                         <th scope="col">Simbolo</th>
-                        <th scope="col">Nota</th>
-
                     </thead>
                     <ul class= "list-group list-group-numbered">
-                        {% for note in notes  %}
+                        {% for market in markets  %}
                         <tr>
-                            <td>{{note.fecha}}</td>
-                            <td>{{note.simbolo}}</td>
-                            <td>{{note.nota}}</td>
-                            
+                            <td>{{market.mercado}}</td>
+                            <td>{{market.simbolo}}</td>
                             
                         </tr>
                         {% endfor %}

@@ -1,7 +1,8 @@
 from django.db import models
+import datetime
 
 class Trade(models.Model):
-    fecha = models.DateField("Fecha de operacion",unique=True, null=True)
+    fecha = models.DateField("Fecha de operacion (mm/dd/yyyy)",auto_now_add=False,auto_now=False,blank=True,null=True)
     simbolo = models.CharField("Simbolo",max_length=30)
     
     posiciones = (
@@ -13,10 +14,12 @@ class Trade(models.Model):
     target = models.FloatField("Target")
     stop = models.FloatField("stop")
     
-class Notes(models.Model):
-    fecha = models.DateField("Fecha de operacion",unique=True, null=True) 
+class Note(models.Model):
+    fecha = models.DateField("Fecha de operacion (mm/dd/yyyy)",auto_now_add=False,auto_now=False,blank=True,null=True)
+    simbolo = models.CharField("Simbolo",max_length=30)
     nota = models.CharField("Notas de trading", max_length=250)
     
     
-class Mercados(models.Model):
-    mercado = models.CharField("Watch List", max_length=250)
+class  Market(models.Model):
+    mercado = models.CharField("mercado a donde pertenece", max_length=250)
+    simbolo = models.CharField("Simbolo",max_length=30)
