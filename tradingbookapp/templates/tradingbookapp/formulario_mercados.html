@@ -1,0 +1,23 @@
+{% extends "tradingbookapp/base.html" %}
+
+{% block titulopagina%}
+The Good Trader - WatchList
+{%endblock%}
+{%block contenidopagina%}
+
+<h2> WatchList:</h2>
+<form action="" method="post">
+    {% csrf_token %} 
+    {% comment %} el csrf token siempre es necesario colocarlo por que sin eso django genera error {% endcomment %}
+    
+    <p>Simbolo a seguir :<input type="text" name="simbolo" id=""></p>
+    
+
+
+
+
+
+    <input type="submit" value="Registrar trade">
+</form>
+
+{%endblock%}

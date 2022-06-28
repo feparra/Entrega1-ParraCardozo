@@ -15,7 +15,7 @@ class Trade(models.Model):
     
 class Notes(models.Model):
     fecha = models.DateField("Fecha de operacion",unique=True, null=True) 
-    Nota = models.CharField("Notas de trading", max_length=250)
+    nota = models.CharField("Notas de trading", max_length=250)
     
     
 class Mercados(models.Model):
