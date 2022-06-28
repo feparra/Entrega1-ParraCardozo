@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Trade,Note,Market
-
+from .forms import NuevoTrade
 
 def index(request):
     return render (request,'tradingbookapp/index.html')
@@ -17,8 +17,8 @@ def Trades(request):
 
 def Markets(request):
     markets = Market.objects.all()
-    ctx = {'mercados':markets}
-    return render(request,'tradingbookapp/watchlist.html',ctx)
+    ctx = {'markets':markets}
+    return render(request,'tradingbookapp/markets.html',ctx)
 
 def base(request):
     
@@ -33,8 +33,12 @@ def crear_trade(request):
         trade.save()
         return redirect("Home")
         
-    else:
-        return render(request,'tradingbookapp/formulario_trade.html')
+    else: #get y otros:
+        
+        tradevacio = NuevoTrade()
+        
+        
+        return render(request,'tradingbookapp/formulario_trade.html',{"form":tradevacio})
 
 
 def crear_notes(request):
@@ -49,7 +53,7 @@ def crear_notes(request):
 
 def crear_mercados(request):
     if request.method =="POST":
-        mercado = Mercado(mercado= request.POST['mercado'])
+        mercado = Market(pais= request.POST['pais'],simbolo= request.POST['simbolo'])
         mercado.save()
         return redirect("Home")
         

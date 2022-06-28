@@ -21,5 +21,5 @@ class Note(models.Model):
     
     
 class  Market(models.Model):
-    mercado = models.CharField("mercado a donde pertenece", max_length=250)
-    simbolo = models.CharField("Simbolo",max_length=30)
+    pais = models.CharField("pais a donde pertenece",max_length=30)
+    simbolo = models.CharField("Simbolo a observar",max_length=30)

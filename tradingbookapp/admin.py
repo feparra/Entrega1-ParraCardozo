@@ -11,8 +11,8 @@ class NoteAdmin(admin.ModelAdmin):
     search_fields =("fecha","simbolo")
     
 class MarketAdmin(admin.ModelAdmin):
-    list_display=("mercado","simbolo" )
-    search_fields =("mercado","simbolo")
+    list_display=("pais","simbolo" )
+    search_fields =("pais","simbolo")
 
 admin.site.register(Trade,TradeAdmin)
 admin.site.register(Note,NoteAdmin)
