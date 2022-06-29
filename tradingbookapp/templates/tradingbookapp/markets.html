@@ -22,13 +22,16 @@ The Good Trader - WatchList
                     <ul class= "list-group list-group-numbered">
                         {% for market in markets  %}
                         <tr>
-                            <td>{{market.pais}}</td>
-                            <td>{{market.simbolo}}</td>
+                            <td><span class= "badge bg-primary rounded-pill>">{{market.pais}}</td></span>
+                            <td><span class= "badge bg-primary rounded-pill>">{{market.simbolo}}</td></span>
                             
                         </tr>
                         {% endfor %}
                     </ul>
                 </table>
+                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    <a class="btn btn-danger btn-lg px-3 me-sm-3" href="{%url 'crear_mercados' %}">Agregar Watchlist</a>
+                </div>
 
 
             </div>
