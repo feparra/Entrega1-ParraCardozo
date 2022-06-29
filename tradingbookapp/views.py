@@ -12,10 +12,20 @@ def Challenge(request):
 
 
 def buscar_trade(request):
-    tradesexistente = []
-    return render(request,'tradingbookapp/buscar_trade.html',{"trades":tradesexistente})
+    if request.method == "POST":
+        simbolo=request.POST["simbolo"]
+        
+        trades = Trade.objects.filter(simbolo__icontains=simbolo)
+        return render(request,'tradingbookapp/buscar_trade.html',{"trades":trades})
+    
+    
+    else: #GET Y otros
+        trades = []
+        return render(request,'tradingbookapp/buscar_trade.html',{"trades":trades})
 
 def buscar_note(request):
+    
+    
     notesexistente = []
     return render(request,'tradingbookapp/buscar_note.html',{"trades":notesexistente})
 

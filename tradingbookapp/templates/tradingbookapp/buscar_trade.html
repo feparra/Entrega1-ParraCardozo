@@ -6,7 +6,7 @@ The Good Trader - Buscar Trades
 {%block contenidopagina%}
 
 <p>Buscar Trades: 
-    <form action="" method="post"> 
+    <form action="" method="POST"> 
 
         {% csrf_token %} 
         {% comment %} el csrf token siempre es necesario colocarlo por que sin eso django genera error {% endcomment %}
@@ -20,7 +20,7 @@ The Good Trader - Buscar Trades
         <p>Entrada: <input type="number" name="entrada" id="" min="0"></p>
         <p>Target:<input type="number" name="target" id="" min="0"></p>
         <p>Stop:<input type="number" name="stop" id="" min="0"></p>-->
-        <input type="text" name="trade" id="">
+        <input type="text" name="simbolo" id="simbolo">
 
 
 
@@ -28,5 +28,12 @@ The Good Trader - Buscar Trades
         <input type="submit" value="Buscar">
     </form>
 </p>
+<p>Resultados:</p>
+<ul>
+    {% for resultado in trades %}
+        <li> {{resultado.fecha}} [{{resultado.simbolo}}] [{{resultado.entrada}}] [{{resultado.get_posicion_display}}] </li>
+    {%endfor%}
+
+</ul>
 
 {%endblock%}
