@@ -3,12 +3,6 @@ from django.shortcuts import render,redirect
 from .models import Trade,Note,Market
 from .forms import NuevoTrade,NuevaTradingnote,NuevoMercado
 
-def index(request):
-    return render (request,'tradingbookapp/index.html')
-
-
-def Challenge(request):
-    return render (request,'tradingbookapp/challenge.html')
 
 
 def buscar_trade(request):
@@ -23,33 +17,26 @@ def buscar_trade(request):
         trades = []
         return render(request,'tradingbookapp/buscar_trade.html',{"trades":trades})
 
+
 def buscar_note(request):
     
     
     notesexistente = []
     return render(request,'tradingbookapp/buscar_note.html',{"trades":notesexistente})
 
+
 def buscar_mercado(request):
     mercadosexistente = []
     return render(request,'tradingbookapp/buscar_mercado.html',{"trades":mercadosexistente})
 
 
-
-
-def Trades(request):
-    trades = Trade.objects.all()
-    ctx = {'trades':trades}
-    return render(request,'tradingbookapp/trades.html',ctx)
-
-def Markets(request):
-    markets = Market.objects.all()
-    ctx = {'markets':markets}
-    return render(request,'tradingbookapp/markets.html',ctx)
-
 def base(request):
     
     return render(request,'tradingbookapp/base.html',{})
 
+
+def Challenge(request):
+    return render (request,'tradingbookapp/challenge.html')
 
 
 def crear_trade(request):
@@ -63,7 +50,7 @@ def crear_trade(request):
             
             trade = Trade(fecha = request.POST['fecha'],simbolo = request.POST['simbolo'],posicion = request.POST['posicion'],entrada = request.POST['entrada'],target = request.POST['target'], stop = request.POST['stop'])
             trade.save()
-            return redirect("Home")
+            return redirect("Trades")
         
         else:
             return render(request,'tradingbookapp/formulario_trade.html',{"form":formulario})
@@ -94,6 +81,7 @@ def crear_notes(request):
         notavacia = NuevaTradingnote()
         return render(request,'tradingbookapp/formulario_notes.html',{"form":notavacia})
 
+
 def crear_mercados(request):
     if request.method =="POST":
         #post
@@ -117,8 +105,67 @@ def Dashboard(request):
     ctx = {'trades':trades}
     return  render (request,'tradingbookapp/dashboard.html',ctx)
 
+
+def eliminar_trade(request,trade_id):
+    trade = Trade.objects.get(id=trade_id)
+    trade.delete()
+    return redirect("Trades")
+
+
+def editar_trade(request,trade_id):
+    trade = Trade.objects.get(id=trade_id)
+    if request.method == "POST":
+        formulario = NuevoTrade(request.POST)
+        if formulario.is_valid():
+            info_trade = formulario.cleaned_data
+            trade.fecha = info_trade["fecha"]
+            trade.simbolo = info_trade["simbolo"]
+            trade.posicion = info_trade["posicion"]
+            trade.entrada = info_trade["entrada"]
+            trade.target = info_trade["target"]
+            trade.stop = info_trade["stop"]
+            trade.save()
+            
+            return redirect("Trades")
+        
+    
+    
+    formulario = NuevoTrade(initial={"fecha":trade.fecha,"simbolo":trade.simbolo,"posicion":trade.posicion,"entrada":trade.entrada,"target":trade.target,"stop":trade.stop,})
+   
+    return render(request,'tradingbookapp/formulario_trade.html',{"form":formulario})
+    
+
+
+
+def index(request):
+    return render (request,'tradingbookapp/index.html')
+
+
+def Markets(request):
+    markets = Market.objects.all()
+    ctx = {'markets':markets}
+    return render(request,'tradingbookapp/markets.html',ctx)
+
+
 def Notes(request):
     notes = Note.objects.all()
     ctx = {'notes':notes}
     return  render (request,'tradingbookapp/notes.html',ctx)
+
+
+def Trades(request):
+    if request.method=="POST":
+        search = request.POST["search"] # este search viene del nombre del cuadro de busqueda de la vista
+        if search !="":
+            trades = Trade.objects.filter(Q(simbolo__icontains=search)|Q(simbolo__icontains=search)).values()
+            return render(request,'tradingbookapp/trades.html',{"trades":trades,"search":True,"busqueda":search})
+    
+    #read
+    trades = Trade.objects.all()
+    ctx = {'trades':trades}
+    return render(request,'tradingbookapp/trades.html',ctx)
+
+
+
+
 

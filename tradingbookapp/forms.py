@@ -23,3 +23,5 @@ class NuevaTradingnote(forms.Form):
 class NuevoMercado(forms.Form):
     pais =forms.CharField(label="pais")
     simbolo = forms.CharField(label="simbolo")
+    
+    
