@@ -6,6 +6,10 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
+from django.contrib.auth.forms import AuthenticationForm #formulario de autenticacion 
+from django.contrib.auth import login,logout, authenticate
+
+
 def buscar_trade(request):
     if request.method == "POST":
         simbolo=request.POST["simbolo"]
@@ -136,10 +140,33 @@ def editar_trade(request,trade_id):
     return render(request,'tradingbookapp/formulario_trade.html',{"form":formulario})
     
 
-
-
 def index(request):
     return render (request,'tradingbookapp/index.html')
+
+
+def Login_request(request):
+    
+    if request.method =="POST":
+        form = AuthenticationForm(request,data=request.POST)
+        
+        if form.is_valid():
+            
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username,password=password)
+            
+            if user is not None:
+                login(request,user)
+                return redirect("inicio")
+            else:
+                return redirect('login')
+        else:
+            return redirect('login')
+    
+    form = AuthenticationForm()
+        
+        
+    return render(request,'tradingbookapp/login.html',{"form":form})
 
 
 def Markets(request):
