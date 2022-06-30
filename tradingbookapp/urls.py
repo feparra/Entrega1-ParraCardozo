@@ -8,6 +8,16 @@ urlpatterns = [
     path('eliminar_trade/<trade_id>',views.eliminar_trade,name="Eliminar_trade"),
     path('editar_trade/<trade_id>',views.editar_trade,name="Editar_trade"),
     
+    #Nuevas URLS
+    path('trades/list',views.TradesList.as_view(),name="Trades_list"),
+    path(r'^(?P<pk>\d+)$',views.TradesDetail.as_view(),name="Trades_detail"),
+    path(r'^nuevo$',views.TradeCreate.as_view(),name="Trades_create"),
+    path(r'^editar/(?P<pk>\d+)$',views.TradeUpdate.as_view(),name="Trades_update"),
+    path(r'^eliminar/(?P<pk>\d+)$',views.TradeDelete.as_view(),name="Trades_delete"),
+    
+    
+    
+    
     path('notes/',views.Notes,name="Notes"),
     path('trades/',views.Trades,name="Trades"),
     path('markets/',views.Markets,name="Markets"),
@@ -18,6 +28,11 @@ urlpatterns = [
     path('buscar_mercados/',views.buscar_mercado,name="buscar_trades"),
     path('crear_notes/',views.crear_notes,name="crear_notes"),
     path('crear_mercados/',views.crear_mercados,name="crear_mercados"),
+    
+    
+    
+    
+    
     # path('base/', views.base),
     
 ]

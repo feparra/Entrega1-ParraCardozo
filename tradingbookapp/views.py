@@ -2,8 +2,9 @@
 from django.shortcuts import render,redirect
 from .models import Trade,Note,Market
 from .forms import NuevoTrade,NuevaTradingnote,NuevoMercado
-
-
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
 def buscar_trade(request):
     if request.method == "POST":
@@ -166,6 +167,33 @@ def Trades(request):
     return render(request,'tradingbookapp/trades.html',ctx)
 
 
+class TradesList(ListView):#lista todos los estudiantes (read)
+    model = Trade 
+    template_name = "tradingbookapp/trade_list.html"
+    
+class TradesDetail(DetailView):
+    model = Trade
+    template_name = "tradingbookapp/trade_detail.html"
+    
+class TradeCreate(CreateView):
+    model = Trade
+    success_url = "/tradingbook/trades/list" #atencion a la primera barra!!!!!! 
+    fields = ["fecha","simbolo","posicion","entrada","target","stop"]
 
+
+class TradeUpdate(UpdateView):
+    model = Trade
+    success_url = "/tradingbook/trades/list" #atencion a la primera barra!!!!!! 
+    fields = ["fecha","simbolo","posicion","entrada","target","stop"]
+
+   
+class TradeDelete(DeleteView):
+     model = Trade
+     success_url = "/tradingbook/trades/list" #atencion a la primera barra!!!!!! 
+  
+    
+    
+    
+    
 
 
