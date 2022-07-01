@@ -1,4 +1,5 @@
 
+import re
 from django.shortcuts import render,redirect
 from .models import Trade,Note,Market
 from .forms import NuevoTrade,NuevaTradingnote,NuevoMercado
@@ -6,7 +7,7 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
-from django.contrib.auth.forms import AuthenticationForm #formulario de autenticacion 
+from django.contrib.auth.forms import AuthenticationForm , UserCreationForm #formulario de autenticacion 
 from django.contrib.auth import login,logout, authenticate
 
 
@@ -157,16 +158,44 @@ def Login_request(request):
             
             if user is not None:
                 login(request,user)
-                return redirect("inicio")
+                return redirect("Home")
             else:
-                return redirect('login')
+                return redirect('Login')
         else:
-            return redirect('login')
+            return redirect('Login')
     
     form = AuthenticationForm()
         
         
     return render(request,'tradingbookapp/login.html',{"form":form})
+
+
+def Register_request(request):
+    
+    if request.method == "POST":
+        
+        form = UserCreationForm(request.POST)
+        
+        if form.is_valid():
+            username=form.cleaned_data.get('username')
+            password=form.cleaned_data.get('password1') # es la primer contrasena no la confirmacion 
+            
+            form.save() #registramos el usuario
+            #inicamos sesion 
+            user = authenticate(username=username,password=password)
+            
+            if user is not None:
+                login(request,user)
+                return redirect("Home")
+            else:
+                return redirect('Login')
+            
+        
+        return render(request,'tradingbookapp/register.html',{"form":form})
+        
+    form = UserCreationForm()
+    
+    return render(request,'tradingbookapp/register.html',{"form":form})
 
 
 def Markets(request):
