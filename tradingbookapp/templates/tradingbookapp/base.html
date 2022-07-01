@@ -27,8 +27,16 @@
                         <li class="nav-item"><a class="nav-link" href="{%url 'Trades' %}">Tradingbook</a></li>
                         <li class="nav-item"><a class="nav-link" href="{%url 'Dashboard' %}">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="{%url 'Notes' %}">Notes</a></li>
-                        <li class="nav-item"><a class="btn btn-outline-light mx-2" href="{%url 'Login' %}">Iniciar Sesion</a></li>
-                        <li class="nav-item"><a class="btn btn-primary mx-2" href="{%url 'Register' %}">Regístrese</a></li>
+
+                        {% if user.is_authenticated%}
+                            <li class="nav-item"><p class="text-light my-2"><i class = "bi bi-person-circle"></i> Hola, <b>{{user.username}}</b>!</p></li>
+                            <li class="nav-item"><a class="btn btn-primary mx-2" href="{% url 'Logout'%}">Cerrar Sesion</a></li>
+                        {% else %}
+
+                            <li class="nav-item"><a class="btn btn-outline-light mx-2" href="{%url 'Login' %}">Iniciar Sesion</a></li>
+                            <li class="nav-item"><a class="btn btn-primary mx-2" href="{%url 'Register' %}">Regístrese</a></li>
+
+                        {% endif %}    
                     </ul>
                 </div>
             </div>

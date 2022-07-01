@@ -7,6 +7,7 @@ urlpatterns = [
     path('dashboard/',views.Dashboard,name="Dashboard"),
     path('login',views.Login_request,name="Login"),
     path('register',views.Register_request,name="Register"),
+    path('logout',views.Logout_request,name="Logout"),
     
     
     path('eliminar_trade/<trade_id>',views.eliminar_trade,name="Eliminar_trade"),

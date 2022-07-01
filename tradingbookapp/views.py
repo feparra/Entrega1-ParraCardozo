@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.contrib.auth.forms import AuthenticationForm   , UserCreationForm #formulario de autenticacion 
 from .forms import *
 from django.contrib.auth import login,logout, authenticate
-
+from django.db.models import Q
 
 def buscar_trade(request):
     if request.method == "POST":
@@ -169,6 +169,11 @@ def Login_request(request):
         
         
     return render(request,'tradingbookapp/login.html',{"form":form})
+
+
+def Logout_request(request):
+    logout(request)
+    return redirect("Home")
 
 
 def Register_request(request):
