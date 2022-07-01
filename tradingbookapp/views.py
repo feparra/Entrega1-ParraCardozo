@@ -7,7 +7,8 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
 
-from django.contrib.auth.forms import AuthenticationForm , UserCreationForm #formulario de autenticacion 
+from django.contrib.auth.forms import AuthenticationForm   , UserCreationForm #formulario de autenticacion 
+from .forms import *
 from django.contrib.auth import login,logout, authenticate
 
 
