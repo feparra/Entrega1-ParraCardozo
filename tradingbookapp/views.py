@@ -1,4 +1,5 @@
 
+from dataclasses import dataclass
 import re
 from django.shortcuts import render,redirect
 from .models import Trade,Note,Market
@@ -11,6 +12,11 @@ from django.contrib.auth.forms import AuthenticationForm   , UserCreationForm #f
 from .forms import *
 from django.contrib.auth import login,logout, authenticate
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 def buscar_trade(request):
     if request.method == "POST":
@@ -45,7 +51,7 @@ def base(request):
 def Challenge(request):
     return render (request,'tradingbookapp/challenge.html')
 
-
+@staff_member_required
 def crear_trade(request):
     
     if request.method =="POST":
@@ -112,13 +118,39 @@ def Dashboard(request):
     ctx = {'trades':trades}
     return  render (request,'tradingbookapp/dashboard.html',ctx)
 
+@login_required
+def Editar_perfil(request):
+    
+    user = request.user # usuario con el que estamos loging
+    
+    if request.method =="POST":
+        
+        form = UserEditForm(request.POST)
+        
+        if form.is_valid():
+            
+            info = form.cleaned_data
+            user.email = info["email"]
+            user.first_name = info['first_name']
+            user.last_name = info['last_name']
+            user.save()
+            
+            return redirect("Home")
+              
+    
+    else:
+        form = UserEditForm(initial={'email':user.email,"first_name":user.first_name,'last_name':user.last_name})
+    
+    return render(request,'tradingbookapp/editar_perfil.html',{'form':form})
 
+
+@staff_member_required
 def eliminar_trade(request,trade_id):
     trade = Trade.objects.get(id=trade_id)
     trade.delete()
     return redirect("Trades")
 
-
+@staff_member_required
 def editar_trade(request,trade_id):
     trade = Trade.objects.get(id=trade_id)
     if request.method == "POST":
@@ -180,7 +212,8 @@ def Register_request(request):
     
     if request.method == "POST":
         
-        form = UserCreationForm(request.POST)
+        # form = UserCreationForm(request.POST)
+        form = UserRegisterform(request.POST)
         
         if form.is_valid():
             username=form.cleaned_data.get('username')
@@ -199,7 +232,8 @@ def Register_request(request):
         
         return render(request,'tradingbookapp/register.html',{"form":form})
         
-    form = UserCreationForm()
+    # form = UserCreationForm()
+    form = UserRegisterform()
     
     return render(request,'tradingbookapp/register.html',{"form":form})
 
@@ -215,7 +249,7 @@ def Notes(request):
     ctx = {'notes':notes}
     return  render (request,'tradingbookapp/notes.html',ctx)
 
-
+@login_required
 def Trades(request):
     if request.method=="POST":
         search = request.POST["search"] # este search viene del nombre del cuadro de busqueda de la vista
@@ -229,7 +263,7 @@ def Trades(request):
     return render(request,'tradingbookapp/trades.html',ctx)
 
 
-class TradesList(ListView):#lista todos los estudiantes (read)
+class TradesList(LoginRequiredMixin,ListView):#lista todos los estudiantes (read)
     model = Trade 
     template_name = "tradingbookapp/trade_list.html"
     

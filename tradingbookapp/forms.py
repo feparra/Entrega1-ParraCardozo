@@ -2,6 +2,8 @@ from django import forms
 from django.forms.widgets import NumberInput
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm #formulario de autenticacion 
 from django.contrib.auth.models import User
+
+
 posiciones=(
     ("1","Long"),
     ("2","Short"),
@@ -32,9 +34,27 @@ class UserRegisterform(UserCreationForm):
     password1 = forms.CharField(label="Password",widget=forms.PasswordInput) # lacontrasena no se ve 
     password2: forms.CharField(label="Password",widget=forms.PasswordInput)
     
+    first_name = forms.CharField(label='Nombre',required=False)
+    last_name=forms.CharField(label='Apellido',required=False)
+    
+    
     class Meta:
         model = User 
-        fields=['username','email','password1','password2']
-        help_texts = {k:"" for k in fields}
+        fields=['username','email','password1','password2','first_name','last_name']
+        # help_texts = {k:"" for k in fields}
     
+class UserEditForm(UserCreationForm):
+    email=forms.EmailField(label="Email")  
+    password1 = forms.CharField(label="Password",widget=forms.PasswordInput,required=False) # lacontrasena no se ve 
+    password2: forms.CharField(label="Confirmar Password",widget=forms.PasswordInput,required=False)
+    first_name = forms.CharField(label='Nombre')
+    last_name=forms.CharField(label='Apellido')
+    
+    
+    
+    class Meta:
+        model = User
+        fields = ["email",'password1','password2','first_name','last_name']
+        
+        
     

@@ -8,17 +8,17 @@ urlpatterns = [
     path('login',views.Login_request,name="Login"),
     path('register',views.Register_request,name="Register"),
     path('logout',views.Logout_request,name="Logout"),
-    
+    path('editar_perfil',views.Editar_perfil,name="Editar_perfil"),
     
     path('eliminar_trade/<trade_id>',views.eliminar_trade,name="Eliminar_trade"),
     path('editar_trade/<trade_id>',views.editar_trade,name="Editar_trade"),
     
     #Nuevas URLS
     path('trades/list',views.TradesList.as_view(),name="Trades_list"),
-    path(r'^(?P<pk>\d+)$',views.TradesDetail.as_view(),name="Trades_detail"),
-    path(r'^nuevo$',views.TradeCreate.as_view(),name="Trades_create"),
-    path(r'^editar/(?P<pk>\d+)$',views.TradeUpdate.as_view(),name="Trades_update"),
-    path(r'^eliminar/(?P<pk>\d+)$',views.TradeDelete.as_view(),name="Trades_delete"),
+    path('trades/<pk>',views.TradesDetail.as_view(),name="Trades_detail"),
+    path('trades/nuevo',views.TradeCreate.as_view(),name="Trades_create"),
+    path('trades/editar/<pk>',views.TradeUpdate.as_view(),name="Trades_update"),
+    path('trades/eliminar/<pk>',views.TradeDelete.as_view(),name="Trades_delete"),
     
     
     
