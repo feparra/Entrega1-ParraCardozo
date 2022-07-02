@@ -2,7 +2,7 @@
 from dataclasses import dataclass
 import re
 from django.shortcuts import render,redirect
-from .models import Trade,Note,Market
+from .models import Avatar, Trade,Note,Market
 from .forms import NuevoTrade,NuevaTradingnote,NuevoMercado
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -175,6 +175,20 @@ def editar_trade(request,trade_id):
     
 
 def index(request):
+    
+    
+    if request.user.is_authenticated:
+        try:
+            avatar= Avatar.objects.get(usuario=request.user)
+            url = avatar.imagen.url
+        except:
+            url ='/media/avatar/generica.png'
+        return render (request,'tradingbookapp/index.html',{"url":url})
+            
+    
+        
+        
+        
     return render (request,'tradingbookapp/index.html')
 
 
@@ -286,8 +300,11 @@ class TradeUpdate(UpdateView):
 class TradeDelete(DeleteView):
      model = Trade
      success_url = "/tradingbook/trades/list" #atencion a la primera barra!!!!!! 
-  
-    
+
+
+def agregar_avatar(request):
+    pass
+   
     
     
     

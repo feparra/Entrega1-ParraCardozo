@@ -1,5 +1,13 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import User
+
+#modelo del avatar 
+class Avatar(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatar/',blank=True,null=True)
+# para  este modelo tuvimos que crear una carpeta media a nivel de manage.py y ademas registramos su URL en la carpeta setting 
+
 
 class Trade(models.Model):
     fecha = models.DateField("Fecha de operacion (mm/dd/yyyy)",auto_now_add=False,auto_now=False,blank=True,null=True)

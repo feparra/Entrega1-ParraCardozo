@@ -2,6 +2,7 @@ from django import forms
 from django.forms.widgets import NumberInput
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm #formulario de autenticacion 
 from django.contrib.auth.models import User
+from .models import Avatar
 
 
 posiciones=(
@@ -30,6 +31,9 @@ class NuevoMercado(forms.Form):
     
 class UserRegisterform(UserCreationForm):
     
+    
+    foto = forms.ImageField(required=False)
+    
     email = forms.EmailField(label="Email")
     password1 = forms.CharField(label="Password",widget=forms.PasswordInput) # lacontrasena no se ve 
     password2: forms.CharField(label="Password",widget=forms.PasswordInput)
@@ -57,4 +61,11 @@ class UserEditForm(UserCreationForm):
         fields = ["email",'password1','password2','first_name','last_name']
         
         
+class AvatarForm(forms.Form):
+    image = forms.ImageField(label="image")
     
+    class Meta:
+        model = Avatar
+        fields = ["image"]
+        
+        

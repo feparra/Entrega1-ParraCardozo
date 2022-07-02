@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Trade,Note,Market
+from .models import Avatar, Trade,Note,Market
 
 class TradeAdmin(admin.ModelAdmin):
     list_display=("fecha","simbolo" , "posicion" , "entrada" , "target" ,"stop")
@@ -17,4 +17,7 @@ class MarketAdmin(admin.ModelAdmin):
 admin.site.register(Trade,TradeAdmin)
 admin.site.register(Note,NoteAdmin)
 admin.site.register(Market,MarketAdmin)
+
+
+admin.site.register(Avatar)
 
