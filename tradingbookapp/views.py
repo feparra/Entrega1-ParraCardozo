@@ -18,6 +18,36 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 
 
+
+
+@login_required
+def Agregar_avatar(request):
+    
+    if request.method == 'POST':
+        
+        form = AvatarForm(request.POST,request.FILES)
+        
+        
+        if form.is_valid():
+            
+            user = User.objects.get(username=request.user) # usuario con el que estamos login 
+            
+            avatar = Avatar(usuario = user,imagen=form.cleaned_data['imagen']) # relacionar una imagen con un usuario especifico 
+            
+            # avatar = Avatar()
+            # avatar.usuario = request.user
+            # avatar.imagen = form.cleaned_data['image']
+            avatar.save()
+            
+            return redirect('Home')
+        
+    else:
+        form = AvatarForm()
+        
+    return render(request,'tradingbookapp/agregar_avatar.html',{'form':form})
+        
+        
+
 def buscar_trade(request):
     if request.method == "POST":
         simbolo=request.POST["simbolo"]
@@ -300,13 +330,4 @@ class TradeUpdate(UpdateView):
 class TradeDelete(DeleteView):
      model = Trade
      success_url = "/tradingbook/trades/list" #atencion a la primera barra!!!!!! 
-
-
-def agregar_avatar(request):
-    pass
-   
-    
-    
-    
-
 

@@ -17,6 +17,7 @@ class NuevoTrade(forms.Form):
     entrada = forms.FloatField(label="Precio Entrada",)
     target = forms.FloatField(label="Target")
     stop = forms.FloatField(label="stop")
+    
 
 class NuevaTradingnote(forms.Form):
     fecha = forms.DateTimeField(label="fecha ", required=True, widget=NumberInput(attrs={'type':'date'}))
@@ -62,10 +63,10 @@ class UserEditForm(UserCreationForm):
         
         
 class AvatarForm(forms.Form):
-    image = forms.ImageField(label="image")
+    imagen = forms.ImageField(label="imagen",required=False)
     
     class Meta:
         model = Avatar
-        fields = ["image"]
+        fields = ["imagen"]
         
         

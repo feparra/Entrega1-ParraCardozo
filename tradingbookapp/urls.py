@@ -9,6 +9,9 @@ urlpatterns = [
     path('register',views.Register_request,name="Register"),
     path('logout',views.Logout_request,name="Logout"),
     path('editar_perfil',views.Editar_perfil,name="Editar_perfil"),
+    path('agregar_avatar',views.Agregar_avatar,name="Agregar_avatar"),
+    
+    
     
     path('eliminar_trade/<trade_id>',views.eliminar_trade,name="Eliminar_trade"),
     path('editar_trade/<trade_id>',views.editar_trade,name="Editar_trade"),

@@ -1,3 +1,17 @@
 from django.test import TestCase
+from .models import Trade
+import datetime
 
-# Create your tests here.
+
+class TradeTest(TestCase):
+    def setUp(self):
+        Trade.objects.create(fecha=datetime.datetime.now(),simbolo="NQ",posicion=2,entrada=20000,target=19800,stop=20100)
+        
+    def test_trade_simbolo(self):
+        trade = Trade.objects.get(posicion =2 )
+        self.assertEqual(trade.simbolo, "NQ")
+
+    def test_trade_creado(self):
+        trade = Trade.objects.get(posicion = 2)
+        self.assertNotEquals(trade,None)
+        
