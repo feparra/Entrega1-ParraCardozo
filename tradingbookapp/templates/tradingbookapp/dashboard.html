@@ -157,7 +157,11 @@ The Good Trader - Dashboard
                                             <tr>
                                                 <td>{{trade.fecha}}</td>
                                                 <td>{{trade.simbolo}}</td>
-                                                <td><span class= "badge bg-primary rounded-pill>">{{trade.get_posicion_display}}</span></td>
+                                                {% if trade.get_posicion_display == "Long"%}
+                                                    <td><span class= "badge bg-primary rounded-pill>">{{trade.get_posicion_display}}</span></td>
+                                                {%else%}
+                                                    <td><span class= "badge bg-danger rounded-pill>">{{trade.get_posicion_display}}</span></td>
+                                                {%endif%}
                                                 <td>{{trade.entrada}}</td>
                                                 <td>{{trade.target}}</td>
                                                 <td>{{trade.stop}}</td>

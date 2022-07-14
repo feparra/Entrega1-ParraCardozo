@@ -86,12 +86,12 @@ def crear_trade(request):
     
     if request.method =="POST":
         #post
-        formulario = NuevoTrade(request.POST)
+        formulario = NuevoTrade(request.POST,request.FILES)
         if formulario.is_valid():
             
             info_trade = formulario.cleaned_data
             
-            trade = Trade(fecha = request.POST['fecha'],simbolo = request.POST['simbolo'],posicion = request.POST['posicion'],entrada = request.POST['entrada'],target = request.POST['target'], stop = request.POST['stop'])
+            trade = Trade(fecha = request.POST['fecha'],simbolo = request.POST['simbolo'],posicion = request.POST['posicion'],entrada = request.POST['entrada'],target = request.POST['target'], stop = request.POST['stop'],tradeimagen=request.POST['tradeimagen'])
             trade.save()
             return redirect("Trades")
         
@@ -179,6 +179,16 @@ def eliminar_trade(request,trade_id):
     trade = Trade.objects.get(id=trade_id)
     trade.delete()
     return redirect("Trades")
+
+
+@login_required
+def ver_trade(request,trade_id):
+    trade = Trade.objects.get(id=trade_id)
+    ctx = {'trade':trade}
+    
+    return render(request,'tradingbookapp/ver_trade.html',ctx)
+    
+    
 
 @staff_member_required
 def editar_trade(request,trade_id):
@@ -292,6 +302,14 @@ def Notes(request):
     notes = Note.objects.all()
     ctx = {'notes':notes}
     return  render (request,'tradingbookapp/notes.html',ctx)
+
+
+@login_required
+def Profile(request):
+    
+    return render(request,'tradingbookapp/profile.html')
+
+
 
 @login_required
 def Trades(request):

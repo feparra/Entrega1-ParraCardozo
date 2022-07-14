@@ -2,7 +2,7 @@ from django import forms
 from django.forms.widgets import NumberInput
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm #formulario de autenticacion 
 from django.contrib.auth.models import User
-from .models import Avatar
+from .models import Avatar,Tradeimagen
 
 
 posiciones=(
@@ -17,6 +17,9 @@ class NuevoTrade(forms.Form):
     entrada = forms.FloatField(label="Precio Entrada",)
     target = forms.FloatField(label="Target")
     stop = forms.FloatField(label="stop")
+    tradeimagen = forms.ImageField(label="tradeimagen",required=False)
+    
+
     
 
 class NuevaTradingnote(forms.Form):

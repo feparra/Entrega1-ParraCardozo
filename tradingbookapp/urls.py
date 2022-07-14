@@ -10,16 +10,19 @@ urlpatterns = [
     path('logout',views.Logout_request,name="Logout"),
     path('editar_perfil',views.Editar_perfil,name="Editar_perfil"),
     path('agregar_avatar',views.Agregar_avatar,name="Agregar_avatar"),
+    path('profile',views.Profile,name="Profile"),
+    
     
     
     
     path('eliminar_trade/<trade_id>',views.eliminar_trade,name="Eliminar_trade"),
     path('editar_trade/<trade_id>',views.editar_trade,name="Editar_trade"),
+    path('ver_trade/<trade_id>',views.ver_trade,name="Ver_trade"),
     
     #Nuevas URLS
     path('trades/list',views.TradesList.as_view(),name="Trades_list"),
     path('trades/<pk>',views.TradesDetail.as_view(),name="Trades_detail"),
-    path('trades/nuevo',views.TradeCreate.as_view(),name="Trades_create"),
+    path('trade/nuevo',views.TradeCreate.as_view(),name="Trades_create"),
     path('trades/editar/<pk>',views.TradeUpdate.as_view(),name="Trades_update"),
     path('trades/eliminar/<pk>',views.TradeDelete.as_view(),name="Trades_delete"),
     

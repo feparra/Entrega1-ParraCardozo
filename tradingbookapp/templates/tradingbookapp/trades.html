@@ -19,7 +19,7 @@ The Good Trader - Trades
                             {% csrf_token %}
                             <input class="flex-grow-0 form-control mr-sm-2" type="search" name="search" placeholder="Buscar por Simbolo & posicion" aria-label="Search">
                             <button class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" type="submit"> <i class="bi bi-search"></i> Buscar</button>
-                            <a class="btn btn-outline-success text-nowrap ms-3 my-2 my-sm-0" href="{% url 'crear_trades' %}"> <i class="bi bi-plus-lg"></i> Crear Trades</a>
+                            <a class="btn btn-outline-danger text-nowrap ms-3 my-2 my-sm-0" href="{% url 'crear_trades' %}"> <i class="bi bi-plus-lg"></i> Crear Trades</a>
                         </form>
                     </div>
                     <br>
@@ -41,7 +41,10 @@ The Good Trader - Trades
                         <th scope="col">Entrada</th>
                         <th scope="col">Target</th>
                         <th scope="col">Stop</th>
+                        <th scope="col">Imagen</th>
+
                         <th scope="col">Acciones</th>
+                        <th scope="col">Ver</th>
                     </thead>
                     <ul class= "list-group list-group-numbered">
                         {% for trade in trades  %}
@@ -49,13 +52,22 @@ The Good Trader - Trades
                             <th scope="row">{{forloop.counter}}</th>
                             <td>{{trade.fecha}}</td>
                             <td>{{trade.simbolo}}</td>
-                            <td><span class= "badge bg-primary rounded-pill>">{{trade.get_posicion_display}}</span></td>
+                            {% if trade.get_posicion_display == "Long"%}
+                                <td><span class= "badge bg-primary rounded-pill>">{{trade.get_posicion_display}}</span></td>
+                            {%else%}
+                                <td><span class= "badge bg-danger rounded-pill>">{{trade.get_posicion_display}}</span></td>
+                            {%endif%}
                             <td>{{trade.entrada}}</td>
                             <td>{{trade.target}}</td>
                             <td>{{trade.stop}}</td>
+                            <td>{{trade.tradeimagen}}</td>
+        
                             <td>
                                 <a href="{% url 'Editar_trade' trade.id %}" class="text-primary badge badge-primary text-decoration-none"> <i class="bi bi-pencil-square"></i> Editar</a>
                                 <a href="{% url 'Eliminar_trade' trade.id %}" class="text-danger badge badge-danger text-decoration-none"> <i class="bi bi-x-square"></i> Eliminar</a>
+                            </td>
+                            <td> 
+                                <a href="{% url 'Ver_trade' trade.id %}" class="btn btn-outline-success"> <i class="bi bi-bar-chart"></i> Ver</a>
                             </td>
                             
                         </tr>
@@ -63,10 +75,6 @@ The Good Trader - Trades
                         
                     </ul>
                 </table>
-
-                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                    <a class="btn btn-danger btn-lg px-4 me-sm-3" href="{%url 'crear_trades' %}">Agregar Trade</a>
-                </div>
 
 
             </div>
